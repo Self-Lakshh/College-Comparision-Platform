@@ -23,10 +23,23 @@ const Header = () => {
         {/* Logo at Left */}
         <Link 
           to="/" 
-          className="text-xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter hover:scale-[0.98] transition-transform flex items-center gap-1 shrink-0"
+          className="flex items-center gap-2 hover:scale-[0.98] transition-all group"
         >
-          <div className="h-6 w-6 bg-blue-600 rounded-md flex items-center justify-center text-white text-[10px] shadow-sm">C</div>
-          <span>Collège<span className="text-blue-500">.</span></span>
+          <div className="relative h-8 w-8 flex items-center justify-center overflow-hidden rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+            <img 
+              src="/logo-light.png" 
+              alt="Logo" 
+              className="h-full w-full object-cover dark:hidden" 
+            />
+            <img 
+              src="/logo-dark.png" 
+              alt="Logo" 
+              className="h-full w-full object-cover hidden dark:block" 
+            />
+          </div>
+          <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter">
+            Collège<span className="text-emerald-500">.</span>
+          </span>
         </Link>
 
         {/* Actions at Right */}
