@@ -4,14 +4,39 @@
 
 @layer base {
   :root {
+    /* Light Theme - Clean & Professional */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Dark Theme - High Contrast & Premium */
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 240 10% 6%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -20,16 +45,9 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
+    --border: 240 3.7% 12%;
     --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.5rem;
-  }
-
-  /* Force dark mode by default */
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --ring: 224.3 76.3% 48%;
   }
 
   * {
@@ -39,6 +57,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -46,7 +65,43 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Tabular numbers for fees and ranks */
-.font-mono {
-  font-variant-numeric: tabular-nums;
+/* Animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+/* Premium Component Overrides */
+.card-premium {
+  @apply rounded-xl border bg-card text-card-foreground shadow-sm transition-all duration-300;
+  @apply hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700;
+}
+
+.card-footer-premium {
+  @apply bg-zinc-50 dark:bg-zinc-900/50 border-t border-zinc-100 dark:border-zinc-800/50 p-5;
+}
+
+.input-premium {
+  @apply bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200;
+}
+
+.btn-primary-glow {
+  @apply bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300;
+}
+
+.header-premium {
+  @apply fixed top-0 left-0 right-0 h-14 border-b bg-background/80 backdrop-blur-md z-50 transition-colors duration-300;
+}
+
+/* Typography Helpers */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-500;
 }

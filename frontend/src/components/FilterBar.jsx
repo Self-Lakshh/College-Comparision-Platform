@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Search, ListFilter, X } from 'lucide-react';
+import { Search, SlidersHorizontal, X, RotateCcw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import Container from './layout/Container';
 import { useDebounce } from '../hooks/useDebounce';
 import { fetchStates } from '../utils/api';
 
@@ -31,12 +32,10 @@ const FilterBar = ({ onFilterChange, initialFilters }) => {
   }, [debouncedSearch, onFilterChange]);
 
   useEffect(() => {
-    // calculate active filters (excluding search as it's handled by debounce)
     let count = 0;
     if (initialFilters.state) count++;
     if (initialFilters.type) count++;
     if (initialFilters.sort !== 'rating_desc') count++;
-    if (initialFilters.minRating) count++;
     setActiveFilterCount(count);
   }, [initialFilters]);
 
@@ -46,18 +45,17 @@ const FilterBar = ({ onFilterChange, initialFilters }) => {
       search: '',
       state: '',
       type: '',
-      minRating: '',
       sort: 'rating_desc'
     });
   };
 
   const FilterControls = ({ mobile = false }) => (
-    <div className={`flex ${mobile ? 'flex-col space-y-4 pt-6' : 'flex-row flex-wrap gap-2 items-center'}`}>
-      <div className={`relative ${mobile ? 'w-full' : 'w-64'}`}>
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+    <div className={`flex ${mobile ? 'flex-col space-y-6' : 'flex-row items-center gap-3'}`}>
+      <div className={`relative ${mobile ? 'w-full' : 'w-[320px]'}`}>
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
         <Input
-          placeholder="Search colleges..."
-          className="pl-9 bg-zinc-900 border-zinc-800 text-zinc-100 h-10 placeholder:text-zinc-600 focus:ring-blue-500"
+          placeholder="Search institutions, courses..."
+          className="input-premium pl-10 h-11 text-sm rounded-lg"
           value={localSearch}
           onChange={(e) => setLocalSearch(e.target.value)}
         />
@@ -67,13 +65,13 @@ const FilterBar = ({ onFilterChange, initialFilters }) => {
         value={initialFilters.state || 'all'} 
         onValueChange={(val) => onFilterChange({ state: val === 'all' ? '' : val })}
       >
-        <SelectTrigger className={`${mobile ? 'w-full' : 'w-40'} bg-zinc-900 border-zinc-800 text-zinc-300 h-10`}>
-          <SelectValue placeholder="All States" />
+        <SelectTrigger className={`${mobile ? 'w-full' : 'w-44'} input-premium h-11 text-sm font-bold rounded-lg`}>
+          <SelectValue placeholder="All Locations" />
         </SelectTrigger>
-        <SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-300">
-          <SelectItem value="all">All States</SelectItem>
+        <SelectContent className="bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-xl p-1">
+          <SelectItem value="all" className="rounded-md font-medium">All Locations</SelectItem>
           {states.map(state => (
-            <SelectItem key={state} value={state}>{state}</SelectItem>
+            <SelectItem key={state} value={state} className="rounded-md font-medium">{state}</SelectItem>
           ))}
         </SelectContent>
       </Select>
@@ -82,15 +80,15 @@ const FilterBar = ({ onFilterChange, initialFilters }) => {
         value={initialFilters.type || 'all'} 
         onValueChange={(val) => onFilterChange({ type: val === 'all' ? '' : val })}
       >
-        <SelectTrigger className={`${mobile ? 'w-full' : 'w-40'} bg-zinc-900 border-zinc-800 text-zinc-300 h-10`}>
-          <SelectValue placeholder="All Types" />
+        <SelectTrigger className={`${mobile ? 'w-full' : 'w-44'} input-premium h-11 text-sm font-bold rounded-lg`}>
+          <SelectValue placeholder="Institution Type" />
         </SelectTrigger>
-        <SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-300">
-          <SelectItem value="all">All Types</SelectItem>
-          <SelectItem value="Public">Public</SelectItem>
-          <SelectItem value="Private">Private</SelectItem>
-          <SelectItem value="Deemed">Deemed</SelectItem>
-          <SelectItem value="Autonomous">Autonomous</SelectItem>
+        <SelectContent className="bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-xl p-1">
+          <SelectItem value="all" className="rounded-md font-medium">All Types</SelectItem>
+          <SelectItem value="Public" className="rounded-md font-medium">Public</SelectItem>
+          <SelectItem value="Private" className="rounded-md font-medium">Private</SelectItem>
+          <SelectItem value="Deemed" className="rounded-md font-medium">Deemed</SelectItem>
+          <SelectItem value="Autonomous" className="rounded-md font-medium">Autonomous</SelectItem>
         </SelectContent>
       </Select>
 
@@ -98,70 +96,84 @@ const FilterBar = ({ onFilterChange, initialFilters }) => {
         value={initialFilters.sort} 
         onValueChange={(val) => onFilterChange({ sort: val })}
       >
-        <SelectTrigger className={`${mobile ? 'w-full' : 'w-40'} bg-zinc-900 border-zinc-800 text-zinc-300 h-10`}>
-          <SelectValue placeholder="Sort By" />
+        <SelectTrigger className={`${mobile ? 'w-full' : 'w-44'} input-premium h-11 text-sm font-bold rounded-lg`}>
+          <SelectValue placeholder="Sort results" />
         </SelectTrigger>
-        <SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-300">
-          <SelectItem value="rating_desc">Highest Rated</SelectItem>
-          <SelectItem value="fees_asc">Fees: Low to High</SelectItem>
-          <SelectItem value="fees_desc">Fees: High to Low</SelectItem>
-          <SelectItem value="nirf_asc">NIRF Rank</SelectItem>
-          <SelectItem value="name_asc">Name A-Z</SelectItem>
+        <SelectContent className="bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-xl p-1">
+          <SelectItem value="rating_desc" className="rounded-md font-medium">Highest Rated</SelectItem>
+          <SelectItem value="fees_asc" className="rounded-md font-medium">Fees: Low to High</SelectItem>
+          <SelectItem value="fees_desc" className="rounded-md font-medium">Fees: High to Low</SelectItem>
+          <SelectItem value="nirf_asc" className="rounded-md font-medium">NIRF Rank</SelectItem>
+          <SelectItem value="name_asc" className="rounded-md font-medium">Name A-Z</SelectItem>
         </SelectContent>
       </Select>
 
-      {(activeFilterCount > 0 || localSearch) && (
+      {(activeFilterCount > 0 || localSearch) && !mobile && (
         <Button 
           variant="ghost" 
+          size="icon"
           onClick={handleReset}
-          className="h-10 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900 px-3 gap-2"
+          className="h-11 w-11 text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all"
+          title="Reset filters"
         >
-          <X className="h-4 w-4" />
-          Reset
+          <RotateCcw className="h-4 w-4" />
         </Button>
       )}
     </div>
   );
 
   return (
-    <div className="py-6 border-b border-zinc-900">
-      {/* Desktop filters */}
-      <div className="hidden lg:block">
-        <FilterControls />
-      </div>
-
-      {/* Mobile filters */}
-      <div className="lg:hidden flex items-center justify-between gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-          <Input
-            placeholder="Search..."
-            className="pl-9 bg-zinc-900 border-zinc-800 text-zinc-100 h-10"
-            value={localSearch}
-            onChange={(e) => setLocalSearch(e.target.value)}
-          />
+    <div className="sticky top-14 z-30 bg-background/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+      <Container className="py-5">
+        {/* Desktop View */}
+        <div className="hidden lg:block">
+          <FilterControls />
         </div>
-        
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" className="bg-zinc-900 border-zinc-800 text-zinc-300 gap-2 h-10">
-              <ListFilter className="h-4 w-4" />
-              Filters
-              {activeFilterCount > 0 && (
-                <Badge className="bg-blue-600 text-white h-5 w-5 p-0 justify-center rounded-full text-[10px]">
-                  {activeFilterCount}
-                </Badge>
-              )}
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="bg-zinc-950 border-zinc-800 text-zinc-100 w-[280px]">
-            <SheetHeader>
-              <SheetTitle className="text-zinc-100">Filters</SheetTitle>
-            </SheetHeader>
-            <FilterControls mobile />
-          </SheetContent>
-        </Sheet>
-      </div>
+
+        {/* Mobile View */}
+        <div className="lg:hidden flex items-center gap-3">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
+            <Input
+              placeholder="Search..."
+              className="input-premium pl-10 h-11 text-sm rounded-lg"
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+            />
+          </div>
+          
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" className="h-11 border-zinc-200 dark:border-zinc-800 rounded-lg gap-2 font-bold px-4">
+                <SlidersHorizontal className="h-4 w-4 text-zinc-600 dark:text-zinc-400" />
+                {activeFilterCount > 0 && (
+                  <Badge className="bg-blue-600 text-white h-5 w-5 p-0 flex items-center justify-center rounded-full text-[10px]">
+                    {activeFilterCount}
+                  </Badge>
+                )}
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="h-[70vh] bg-background border-t-zinc-200 dark:border-t-zinc-800 rounded-t-[2.5rem] p-8 shadow-2xl">
+              <div className="flex items-center justify-between mb-8">
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Filter Search</h3>
+                  <p className="text-sm text-zinc-500">Refine results by location, type, or rank.</p>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleReset}
+                  className="text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold gap-2"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  Reset
+                </Button>
+              </div>
+              <FilterControls mobile />
+            </SheetContent>
+          </Sheet>
+        </div>
+      </Container>
     </div>
   );
 };

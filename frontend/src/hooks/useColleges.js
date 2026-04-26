@@ -28,6 +28,14 @@ export const useColleges = (initialFilters = {}) => {
       const data = await fetchColleges({ ...currentFilters, page }, abortControllerRef.current.signal);
       setColleges(data.data);
       setPagination(data.pagination);
+
+      // Save search to history if it exists
+      if (currentFilters.search && currentFilters.search.trim().length > 2) {
+        const history = JSON.parse(localStorage.getItem('college_history') || '[]');
+        const entry = { query: currentFilters.search, timestamp: new Date().toISOString() };
+        const newHistory = [entry, ...history.filter(h => h.query !== entry.query)].slice(0, 5);
+        localStorage.setItem('college_history', JSON.stringify(newHistory));
+      }
     } catch (err) {
       if (err.name === 'AbortError') return;
       setError(err.message || 'Something went wrong');
