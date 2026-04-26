@@ -25,6 +25,21 @@
 
 ---
 
+## 📸 Platform Showcase
+
+<div align="center">
+  <img src="frontend/public/mockup1.png" alt="Platform Overview" width="800" />
+  <br />
+  <em>The high-performance discovery engine in action</em>
+  <br /><br />
+  <img src="frontend/public/mockup2.png" alt="Comparison Engine" width="800" />
+  <br />
+  <em>Side-by-side intelligence with automated value detection</em>
+</div>
+
+---
+
+
 ## 🚀 The Vision
 
 Collège is a high-performance, full-stack comparison engine designed to solve the complexity of higher education decisions in India. Built with a "Data-First" philosophy, it provides students with a cinematic, high-speed interface to browse, filter, and compare top-tier institutions.
