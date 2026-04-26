@@ -79,8 +79,3 @@ npm run dev   # App on http://localhost:5173
 - **Lean Reads**: All API queries use `.lean()` to bypass Mongoose hydration, cutting response overhead by 30%.
 - **Zero-Flash Theme**: Custom blocking script in `index.html` ensures dark mode loads before the first paint.
 
----
-
-<div align="center">
-  Built with precision by <strong>Antigravity</strong>
-</div>
