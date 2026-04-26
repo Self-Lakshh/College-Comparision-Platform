@@ -79,6 +79,12 @@ function PopoverDescription({
   );
 }
 
+function PopoverClose({
+  ...props
+}) {
+  return <PopoverPrimitive.Close data-slot="popover-close" {...props} />;
+}
+
 export {
   Popover,
   PopoverContent,
@@ -86,4 +92,5 @@ export {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
+  PopoverClose,
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { History, Clock, RotateCcw } from 'lucide-react';
+import { History, Clock, RotateCcw, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   Popover, 
   PopoverContent, 
-  PopoverTrigger 
+  PopoverTrigger,
+  PopoverClose
 } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Link } from 'react-router-dom';
@@ -41,22 +42,27 @@ const HistoryButton = () => {
         <History className="h-5 w-5" />
       </PopoverTrigger>
 
-      <PopoverContent className="w-80 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-0 shadow-2xl rounded-xl overflow-hidden animate-in zoom-in-95 duration-200">
+      <PopoverContent align="end" className="w-80 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-0 shadow-2xl rounded-xl overflow-hidden animate-in zoom-in-95 duration-200">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-sm">
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-blue-600 dark:text-blue-500" />
-            <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Recent Activity</span>
+            <span className="text-sm font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-tighter">Recent Activity</span>
           </div>
-          {history.length > 0 && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={clearHistory}
-              className="h-8 text-[10px] font-bold uppercase tracking-wider text-zinc-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
-            >
-              Clear
-            </Button>
-          )}
+          <div className="flex items-center gap-1">
+            {history.length > 0 && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={clearHistory}
+                className="h-8 text-[10px] font-bold uppercase tracking-wider text-zinc-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 px-2"
+              >
+                Clear
+              </Button>
+            )}
+            <PopoverClose className="h-8 w-8 flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-all">
+              <X className="h-4 w-4" />
+            </PopoverClose>
+          </div>
         </div>
 
         <div className="max-h-[320px] overflow-y-auto py-2">
