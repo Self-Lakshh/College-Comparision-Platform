@@ -8,14 +8,14 @@ import Container from '../components/layout/Container';
 import { Button } from '@/components/ui/button';
 
 const Home = () => {
-  const { 
-    colleges, 
-    pagination, 
-    loading, 
-    error, 
-    filters, 
-    updateFilters, 
-    changePage 
+  const {
+    colleges,
+    pagination,
+    loading,
+    error,
+    filters,
+    updateFilters,
+    changePage
   } = useColleges({
     sort: 'rating_desc'
   });
@@ -52,7 +52,7 @@ const Home = () => {
 
       {/* Filter Bar */}
       <FilterBar onFilterChange={updateFilters} initialFilters={filters} />
-      
+
       <Container className="py-12">
         {/* Results Meta */}
         <div className="flex items-center justify-between mb-8">
@@ -71,8 +71,8 @@ const Home = () => {
             </div>
           ) : colleges.length === 0 ? (
             <div className="col-span-full">
-              <EmptyState 
-                title="No colleges found" 
+              <EmptyState
+                title="No colleges found"
                 description="We couldn't find any colleges matching your filters. Try adjusting your search or clearing filters."
                 actionLabel="Clear all filters"
                 onAction={handleReset}
@@ -96,7 +96,7 @@ const Home = () => {
             >
               Previous
             </Button>
-            
+
             <div className="flex items-center gap-1 px-4">
               <span className="text-sm font-bold text-zinc-100">{pagination.page}</span>
               <span className="text-sm text-zinc-600">/</span>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { History, Clock, X } from 'lucide-react';
+import { History, Clock, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   Popover, 
@@ -31,22 +31,15 @@ const HistoryButton = () => {
 
   return (
     <Popover>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <PopoverTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-all duration-200"
-            >
-              <History className="h-5 w-5" />
-            </Button>
-          </PopoverTrigger>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Recent Activity</p>
-        </TooltipContent>
-      </Tooltip>
+      {/* 
+          Removing Tooltip wrapper for now to resolve hydration error 
+          caused by nested button triggers in Base UI components.
+      */}
+      <PopoverTrigger 
+        className="inline-flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 h-9 w-9 rounded-md border border-transparent outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      >
+        <History className="h-5 w-5" />
+      </PopoverTrigger>
 
       <PopoverContent className="w-80 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 p-0 shadow-2xl rounded-xl overflow-hidden animate-in zoom-in-95 duration-200">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-sm">

@@ -15,8 +15,8 @@ const Compare = () => {
     <div className="animate-in fade-in duration-500 pb-20">
       <section className="bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-900 py-16 md:py-24 transition-colors duration-300">
         <Container>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate('/')}
             className="group p-0 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-transparent mb-8 h-auto font-bold text-xs uppercase tracking-widest"
           >
@@ -35,8 +35,8 @@ const Compare = () => {
             </div>
 
             {selected.length > 0 && (
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 onClick={clearAll}
                 className="text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 gap-2 h-11 px-4 rounded-lg font-bold"
               >
@@ -51,8 +51,8 @@ const Compare = () => {
       <Container className="py-12">
         {selected.length < 2 ? (
           <div className="card-premium p-12">
-            <EmptyState 
-              title="Add more colleges" 
+            <EmptyState
+              title="Add more colleges"
               description="You need at least 2 colleges for a side-by-side comparison. Go back and select your favorites."
               actionLabel="Return to browse"
               onAction={() => navigate('/')}
@@ -63,7 +63,7 @@ const Compare = () => {
             <div className="card-premium overflow-hidden">
               <CompareTable colleges={selected} />
             </div>
-            
+
             <div className="card-premium p-8 bg-blue-50/30 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="h-12 w-12 rounded-2xl bg-blue-600/10 flex items-center justify-center shrink-0 shadow-sm border border-blue-200 dark:border-blue-900/50">
                 <Info className="h-6 w-6 text-blue-600 dark:text-blue-500" />
@@ -71,7 +71,7 @@ const Compare = () => {
               <div className="space-y-1">
                 <h4 className="text-base font-bold text-zinc-900 dark:text-zinc-100">Comparison Intelligence</h4>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-3xl font-medium">
-                  Winners are highlighted in <span className="text-emerald-600 dark:text-emerald-400 font-bold">emerald</span>. 
+                  Winners are highlighted in <span className="text-emerald-600 dark:text-emerald-400 font-bold">emerald</span>.
                   Our system evaluates metrics like Fees (lower is better), Rankings (lower is better), and Ratings (higher is better) to help you find the best value.
                 </p>
               </div>

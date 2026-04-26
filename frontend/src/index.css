@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Light Theme - Clean & Professional */
+    /* Light Theme Tokens (Strict) */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -15,23 +15,23 @@
     --primary-foreground: 210 40% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
+    --muted: 240 3.8% 46.1%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 240 5.9% 90%;
+    --border: 240 5.9% 90%; /* zinc-200 */
     --input: 240 5.9% 90%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.75rem;
+    --ring: 240 10% 3.9%;
+    --radius: 0.5rem; /* rounded-md */
   }
 
   .dark {
-    /* Dark Theme - High Contrast & Premium */
-    --background: 240 10% 3.9%;
+    /* Dark Theme Tokens (Refined) */
+    --background: 240 10% 3.9%; /* zinc-950 approx */
     --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
+    --card: 240 10% 3.9%; /* zinc-900 */
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
@@ -45,9 +45,9 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 12%;
+    --border: 240 3.7% 15.9%; /* zinc-800 */
     --input: 240 3.7% 15.9%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 240 4.9% 83.9%;
   }
 
   * {
@@ -55,9 +55,9 @@
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
@@ -65,43 +65,51 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Animations */
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
+/* Custom UI Classes */
 
-.animate-pulse-subtle {
-  animation: pulse-subtle 2s infinite ease-in-out;
-}
-
-/* Premium Component Overrides */
 .card-premium {
-  @apply rounded-xl border bg-card text-card-foreground shadow-sm transition-all duration-300;
-  @apply hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700;
+  @apply bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.01] rounded-md;
 }
 
-.card-footer-premium {
-  @apply bg-zinc-50 dark:bg-zinc-900/50 border-t border-zinc-100 dark:border-zinc-800/50 p-5;
+.btn-primary-premium {
+  @apply bg-blue-600 hover:bg-blue-500 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-md dark:shadow-[0_0_14px_rgba(59,130,246,0.35)];
 }
 
 .input-premium {
-  @apply bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200;
-}
-
-.btn-primary-glow {
-  @apply bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300;
+  @apply bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder:text-zinc-400 transition-all rounded-md;
 }
 
 .header-premium {
-  @apply fixed top-0 left-0 right-0 h-14 border-b bg-background/80 backdrop-blur-md z-50 transition-colors duration-300;
+  @apply bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm transition-all;
 }
 
-/* Typography Helpers */
-.text-balance {
-  text-wrap: balance;
+.filter-bar-group {
+  @apply bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 transition-all;
 }
 
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-500;
+.badge-premium {
+  @apply bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 rounded-full px-2 py-0.5 text-[11px] font-medium;
+}
+
+/* Tabular numbers for fees and ranks */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes loader-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: loader-spin 3s linear infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+.animate-pulse-logo {
+  animation: pulse-logo 2s ease-in-out infinite;
 }

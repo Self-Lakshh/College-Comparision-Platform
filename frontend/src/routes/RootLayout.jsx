@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/sonner';
 
 const RootLayout = () => {
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-blue-500/30 selection:text-blue-200 transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
       <Header />
       
       <main className="pt-14 pb-20">
@@ -20,11 +20,12 @@ const RootLayout = () => {
 
       {/* Global Toast Notifications */}
       <Toaster 
-        position="top-right" 
-        theme="dark" 
+        position="bottom-right" 
+        expand={false}
         richColors 
+        theme="system"
         toastOptions={{
-          className: 'bg-zinc-900 border-zinc-800 text-zinc-100',
+          className: 'rounded-md border-zinc-200 dark:border-zinc-800 shadow-lg font-medium',
         }}
       />
     </div>

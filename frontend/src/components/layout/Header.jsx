@@ -7,30 +7,32 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { useCompare } from '../../context/CompareContext';
 import ThemeToggle from './ThemeToggle';
 import HistoryButton from './HistoryButton';
+import Container from './Container'; // Ensure this is imported correctly
 
+/**
+ * Global Navigation Header
+ */
 const Header = () => {
   const { selected } = useCompare();
   const location = useLocation();
   const isComparePage = location.pathname === '/compare';
 
   return (
-    <header className="header-premium flex items-center">
-      <div className="max-w-6xl mx-auto px-6 w-full flex items-center justify-between">
-        {/* Logo */}
+    <header className="header-premium fixed top-0 left-0 right-0 h-14 z-[100] flex items-center">
+      <Container className="flex items-center justify-between w-full">
+        {/* Logo at Left */}
         <Link 
           to="/" 
-          className="text-xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight hover:opacity-80 transition-opacity"
+          className="text-xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter hover:scale-[0.98] transition-transform flex items-center gap-1 shrink-0"
         >
-          Collège<span className="text-blue-500">.</span>
+          <div className="h-6 w-6 bg-blue-600 rounded-md flex items-center justify-center text-white text-[10px] shadow-sm">C</div>
+          <span>Collège<span className="text-blue-500">.</span></span>
         </Link>
 
-        {/* Actions */}
-        <div className="flex items-center gap-1.5 md:gap-3">
-          <div className="flex items-center border-r border-zinc-200 dark:border-zinc-800 pr-1.5 md:pr-3 mr-1.5 md:mr-3">
-            {/* History Button */}
+        {/* Actions at Right */}
+        <div className="flex items-center gap-2 md:gap-4 ml-auto">
+          <div className="flex items-center gap-1 border-r border-zinc-200 dark:border-zinc-800 pr-2 md:pr-4">
             <HistoryButton />
-
-            {/* Theme Toggle */}
             <ThemeToggle />
           </div>
 
@@ -40,22 +42,19 @@ const Header = () => {
               <Link to="/compare">
                 <Button 
                   size="sm" 
-                  className="gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-premium transition-all duration-200 h-9"
+                  className="btn-primary-premium gap-2 h-9 px-4"
                 >
                   <LayoutGrid className="h-4 w-4" />
-                  <span className="hidden sm:inline">Compare</span>
-                  <Badge 
-                    variant="secondary" 
-                    className="bg-white/20 text-white hover:bg-white/30 px-1.5 h-5 min-w-[20px] justify-center rounded-full"
-                  >
+                  <span className="hidden sm:inline font-bold">Compare</span>
+                  <div className="bg-white/20 text-white px-1.5 h-5 min-w-[20px] flex items-center justify-center rounded-full text-[10px] font-bold">
                     {selected.length}
-                  </Badge>
+                  </div>
                 </Button>
               </Link>
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </header>
   );
 };
